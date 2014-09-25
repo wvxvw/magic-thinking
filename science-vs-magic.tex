@@ -1,4 +1,4 @@
-% Created 2014-09-25 Thu 18:13
+% Created 2014-09-25 Thu 18:46
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -361,6 +361,31 @@ Even though we've defined the behavior of the buttons, we are still nowhere
 near making our program useful.  Below is a first attempt at putting it all
 together:
 
+Whoa, this was a lot of code (see page \pageref{if_pressed})! But, to tell you
+the truth, this code could have been condenced to a fraction of the above by
+use of recursion.  Recursion is universally acknowledged to be a hard topic
+for beginners, and this is one of the reasons why the code is presented as a
+list of rules rather than a more condence and mathematically appealing form.
+If you examine it closely you will see that the code is largerly repetitive,
+thus doesn't require as much effort understanding it as was the case with the
+previous snippets.
+
+All this rule does it encodes the behavior of buttons, when they are pressed in
+various states.  Now, this is what we were after!  Finally, this is a really
+useful program.  This program can unambiguously answer questions such as:
+
+\emph{What should the UI look like, given its previous state and the fact}
+\emph{that the} \texttt{fast\_forward} \emph{button was clicked?}
+
+Compare this to the existing document.  Which one is longer? Which one can be
+reliably said to capture all possible cases?  Which one can be used mechanically
+to develop a program and to verify that the program meets the requirements?
+Know that it is only the beginning.  It is possible to do much, much more than
+this, if only you apply some effort!
+
+\newpage
+
+\label{if_pressed}
 \begin{minted}[bgcolor=codebg,fontsize=\scriptsize]{prolog}
 if_pressed(Button, modifiers(Playback, Position, Content, Mode), NextState):-
     ( Button = none ->
@@ -379,53 +404,27 @@ if_pressed(Button, modifiers(Playback, Position, Content, Mode), NextState):-
         ( Position = middle ; Position = beginning ) ,
         NextState = modifiers(playing, Position, Content, Mode) ) ;
       Button = stop_video ->
-      ( Content \= slide ,
-        Playback \= stopped ,
-        Position \= end ,
+      ( Content = video , Playback = playing ,
+        ( Position = middle ; Position = beginning ) ,
         NextState = modifiers(stopped, Position, Content, Mode) ) ;
       Button = play_slide ->
-      ( Content \= video ,
-        Playback \= playing ,
-        Position \= end ,
+      ( Content = slide , Playback = stopped ,
+        ( Position = middle ; Position = beginning ) ,
         NextState = modifiers(playing, Position, Content, Mode) ) ;
       Button = stop_slide ->
-      ( Content \= video ,
-        Playback \= stopped ,
-        Position \= end ,
+      ( Content = slide , Playback = playing ,
+        ( Position = middle ; Position = beginning ) ,
         NextState = modifiers(playing, Position, Content, Mode) ) ;
       Button = replay ->
-      ( Position \= start ,
-        Position \= middle ,
-        Playback \= playing ,
+      ( Position = end ,
         NextState = modifiers(stopped, beginning, Content, Mode) ) ;
       Button = auto ->
-      ( Mode \= manual ,
-        NextState = modifiers(Playback, Position, Content, auto) ) ;
+      ( Mode = auto ,
+        NextState = modifiers(Playback, Position, Content, manual) ) ;
       Button = manual ->
-      ( Mode \= auto ,
-        NextState = modifiers(Playback, Position, Content, manual) ) ).
+      ( Mode = manual ,
+        NextState = modifiers(Playback, Position, Content, auto) ) ).
 \end{minted}
-
-Whoa, this was a lot of code! But, to tell you the truth, this code could have
-been condenced to a fraction of the above by use of recursion.  Recursion is
-universally acknowledged to be a hard topic for beginners, and this is one of
-the reasons why the code is presented as a list of rules rather than a more
-condence and mathematically appealing form.  If you examine it closely you will
-see that the code is largerly repetitive, thus doesn't require as much effort
-understanding it as was the case with the previous snippets.
-
-All this rule does it encodes the behavior of buttons, when they are pressed in
-various states.  Now, this is what we were after!  Finally, this is a really
-useful program.  This program can unambiguously answer questions such as:
-
-\emph{What button should the UI look like, given its previous state and the fact}
-\emph{that the} \texttt{fast\_forward} \emph{button was clicked?}
-
-Compare this to the existing document.  Which one is longer? Which one can be
-reliably said to capture all possible cases?  Which one can be used mechanically
-to develop a program and to verify that the program meets the requirements?
-Know that it is only the beginning.  It is possible to do much, much more than
-this, if only you apply some effort!
 \subsection{Queries}
 \label{sec-2-4}
 
