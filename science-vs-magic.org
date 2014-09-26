@@ -212,7 +212,7 @@
    hardship, there is no better way to combat it.  No matter what Soren
    Kierkegaard has to say.
 
-** Magic thinking
+** Magical thinking
    
    #+BEGIN_LATEX
      \begin{figure}[h!]
@@ -225,7 +225,7 @@
      \end{figure}
    #+END_LATEX
 
-   Magic thinking is the extension of magical numbers and strings.  Magical
+   Magical thinking is the extension of magical numbers and strings.  Magical
    thinking is understood as reliance on superstition, religious belief or
    exercise of some religious rite, witnessing a revelation, being in a transe,
    or by observing a taboo.  But some times it's not easy to recognize it as
