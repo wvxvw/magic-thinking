@@ -32,6 +32,20 @@
 
 \newpage
 
+#+BEGIN_LATEX
+  \vspace*{\stretch{1}}
+  \begin{quote}
+    People quickly grow accustomed to being the slaves of mystery
+  \end{quote}
+  
+  \begin{flushright}
+    --- \emph{Guillaume Apollinaire, The Cubist Painters}
+  \end{flushright}
+  \vspace*{\stretch{3}}
+#+END_LATEX
+
+\newpage
+
 * The conflict
   
   #+BEGIN_LATEX
